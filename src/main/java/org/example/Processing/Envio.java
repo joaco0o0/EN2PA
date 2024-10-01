@@ -2,20 +2,23 @@ package org.example.Processing;
 
 import org.example.Pedido.Pedido;
 
-public class Envio implements Runnable {
-    private Pedido pedido;
+public class Envio extends Tarea {
 
-    public Envio(Pedido pedido) {
-        this.pedido = pedido;
+    public Envio(int pedido, boolean isUrgente) {
+        super(pedido, isUrgente);
     }
+
+
 
     @Override
     public void run() {
-        System.out.println("Enviando pedido " + pedido);
         try {
-            Thread.sleep(200); // Simulación de envío
-        } catch (InterruptedException e) {
+            System.out.println(this.pedido + " Envio en ejecucion :" + this.isUrgente);
+            Thread.sleep(20);
+            System.out.println(this.pedido + " Envio completed :" + this.isUrgente);
+        }catch (InterruptedException interruptedException){
             Thread.currentThread().interrupt();
+            throw new RuntimeException(interruptedException);
         }
     }
 }

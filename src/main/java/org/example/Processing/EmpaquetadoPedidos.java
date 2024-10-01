@@ -3,20 +3,21 @@ package org.example.Processing;
 
 import org.example.Pedido.Pedido;
 
-public class EmpaquetadoPedidos implements Runnable {
-    private Pedido pedido;
+public class EmpaquetadoPedidos extends Tarea {
 
-    public EmpaquetadoPedidos(Pedido pedido) {
-        this.pedido = pedido;
+    public EmpaquetadoPedidos(int pedido, boolean isUrgente) {
+        super(pedido, isUrgente);
     }
 
     @Override
     public void run() {
-        System.out.println("Empaquetando pedido " + pedido);
         try {
-            Thread.sleep(150); // Simulación de empaquetado
-        } catch (InterruptedException e) {
+            System.out.println(this.pedido + " Empaquetado en proceso:" + this.isUrgente);
+            Thread.sleep(20);
+            System.out.println(this.pedido + " Empaquetado completed :" + this.isUrgente);
+        }catch (InterruptedException interruptedException){
             Thread.currentThread().interrupt();
+            throw new RuntimeException(interruptedException);
         }
     }
 }

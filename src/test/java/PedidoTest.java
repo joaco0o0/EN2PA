@@ -1,12 +1,20 @@
 import org.example.Pedido.Pedido;
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PedidoTest {
-    @Test
-    public void testPrioridadPedido() {
-        Pedido pedidoNormal = new Pedido(1, false);
-        Pedido pedidoUrgente = new Pedido(2, true);
-        assertTrue(pedidoUrgente.compareTo(pedidoNormal) < 0);  // Urgente tiene prioridad
+    @Test //pasó
+    public void testCrearPedido() {
+        Pedido pedido = new Pedido(1, true);
+        assertEquals(1, pedido.getId());
+        assertTrue(pedido.isUrgente());
+    }
+
+    @Test //pasó
+    public void testNoUrgente() {
+        Pedido pedido = new Pedido(2, false);
+        assertEquals(2, pedido.getId());
+        assertFalse(pedido.isUrgente());
     }
 }

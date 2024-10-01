@@ -6,17 +6,18 @@ import java.util.concurrent.*;
 
 public class ProcesadorPedidos {
     private final ExecutorService executor;
-    private final BlockingQueue<Runnable> queue;
 
-    public ProcesadorPedidos(int nThreads) {
-        queue = new PriorityBlockingQueue<>();
-        executor = new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, queue);
+    public ProcesadorPedidos() {
+        PriorityBlockingQueue<Runnable> queue = new PriorityBlockingQueue<>();
+        executor = new ThreadPoolExecutor(1, 300, 0L, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<Runnable>());
     }
 
+
+
     public void procesarPedido(Pedido pedido) {
-        executor.execute(new ProcesamientoPago(pedido));
-        executor.execute(new EmpaquetadoPedidos(pedido));
-        executor.execute(new Envio(pedido));
+        executor.execute(new ProcesamientoPago(pedido.getId(), pedido.isUrgente()));
+        executor.execute(new EmpaquetadoPedidos(pedido.getId(), pedido.isUrgente()));
+        executor.execute(new Envio(pedido.getId(), pedido.isUrgente()));
     }
 
     public void shutdown() {

@@ -1,6 +1,6 @@
 package org.example.Pedido;
 
-public class Pedido implements Comparable<Pedido> {
+public class Pedido {
     private int id;
     private boolean urgente;
 
@@ -10,16 +10,10 @@ public class Pedido implements Comparable<Pedido> {
     }
 
     public boolean isUrgente() {
+
         return urgente;
     }
-
-    @Override
-    public int compareTo(Pedido o) {
-        return Boolean.compare(o.isUrgente(), this.urgente); // Prioriza los pedidos urgentes
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido " + id + (urgente ? " (Urgente)" : "");
+    public int getId() {
+        return id;
     }
 }

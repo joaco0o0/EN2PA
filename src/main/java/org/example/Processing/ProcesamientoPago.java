@@ -1,21 +1,24 @@
 package org.example.Processing;
 
-import org.example.Pedido.Pedido;
 
-public class ProcesamientoPago implements Runnable {
-    private Pedido pedido;
+public class ProcesamientoPago extends Tarea {
 
-    public ProcesamientoPago(Pedido pedido) {
-        this.pedido = pedido;
+    public ProcesamientoPago(int pedido, boolean isUrgente) {
+        super(pedido, isUrgente);
     }
+
+
 
     @Override
     public void run() {
-        System.out.println("Procesando pago para " + pedido);
         try {
-            Thread.sleep(100); // Simulación de procesamiento
-        } catch (InterruptedException e) {
+            System.out.println(this.pedido + " Pago en ejecucion :" + this.isUrgente);
+            Thread.sleep(20);
+            System.out.println(this.pedido + " Pago completed :" + this.isUrgente);
+        }catch (InterruptedException interruptedException){
             Thread.currentThread().interrupt();
+            throw new RuntimeException(interruptedException);
         }
     }
+
 }
